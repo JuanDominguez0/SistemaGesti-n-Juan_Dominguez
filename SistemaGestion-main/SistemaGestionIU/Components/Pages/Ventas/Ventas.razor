@@ -1,0 +1,82 @@
+﻿@page "/ventas"
+@inject VentasService dataAccess
+
+<div class="container">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="bi bi-receipt-cutoff "> Ventas </h2>
+        </div>
+        <div class="col-6">
+            <NavLink class="btn btn-secondary mt-2" href=""> Volver al inicio </NavLink>
+        </div>
+    </div>
+    <div class="row mt-2">
+        <div class="col-6">
+                <NavLink class="btn btn-success" href="ventas/new"> Agregar ventas </NavLink>
+        </div>
+        <div class="col-6">
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder=" Filtrar por comentario... "/>
+                <button type="button" class="btn btn-outline-secondary"> Buscar </button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-striped table-dark">
+        <thead>
+            <tr>
+                <th scope="col">Id</th>
+                <th scope="col">Comentario</th>
+                <th scope="col">Id usuario compra</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Venta venta in ventas)
+            {
+                <tr>
+                    <td>@venta.Id</td>
+                    <td>@venta.Comentario</td>
+                    <td>@venta.IdUsuario </td>
+                    <td>
+                        <a href="/ventas/@venta.Id/editar">
+                            <button type="button" class="btn btn-outline-secondary">Actualizar</button>
+                        </a>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-outline-danger" @onclick="@(() => EliminarVenta(venta.Id))">Eliminar</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    private List<Venta> ventas = new List<Venta>();
+
+    private string filtro = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ventas = await dataAccess.ListarVentas();
+    }
+
+    public async Task EliminarVenta(int id)
+    {
+        await dataAccess.EliminarVenta(id);
+        ventas = await dataAccess.ListarVentas();
+    }
+
+    public async Task Buscar()
+    {
+        ventas = await dataAccess.Filtrar(filtro);
+    }
+
+    public async Task Refresh()
+    {
+        filtro = string.Empty;
+        ventas = await dataAccess.Filtrar(filtro);
+    }
+}

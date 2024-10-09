@@ -1,0 +1,44 @@
+﻿@inject NavigationManager Navigation
+@inject ProductosVendidosService dataAccess
+
+<EditForm Model="producto" OnValidSubmit="@CrearOActualizarProductoVendido" FormName="productosVendidos-form">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div class="form-control">
+        <div class="mb-3">
+            <label for="idProd" class="form-label">Id producto</label>
+            <InputNumber type="number" id="idProd" @bind-Value="producto.IdProducto" class="form-control" />
+            <ValidationMessage For="(() => producto.IdProducto)" />
+        </div>
+        <div class="mb-3">
+            <label for="stock" class="form-label">Stock</label>
+            <InputNumber type="number" id="stock" @bind-Value="producto.Stock" class="form-control" />
+            <ValidationMessage For="(() => producto.Stock)" />
+        </div>
+        <div class="mb-3">
+            <label for="idVenta" class="form-label">Id venta</label>
+            <InputNumber type="number" id="idVenta" @bind-Value="producto.IdVenta" class="form-control" />
+            <ValidationMessage For="(() => producto.IdVenta)" />
+        </div>
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </div>
+</EditForm>
+
+@code {
+    [Parameter]
+    public ProductoVendido? producto { get; set; }
+
+
+    public async Task CrearOActualizarProductoVendido()
+    {
+        if (producto.Id > 0)
+        {
+            await dataAccess.ModificarProductoVendido(producto.Id, producto);
+        }
+        else
+        {
+            await dataAccess.CrearProductoVendido(producto);
+        }
+        Navigation.NavigateTo("/productosVendidos");
+    }
+}

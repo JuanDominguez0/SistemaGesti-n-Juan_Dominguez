@@ -1,0 +1,31 @@
+﻿@page "/ventas/{Id:int}/editar"
+@inject VentasService dataAccess
+
+<div class="container">
+    <h1>Editar venta</h1>
+    <div class="m-1 mb-3">
+        <NavLink class="btn btn-secondary" href="ventas">Volver a ventas</NavLink>
+    </div>
+    <div class="m-1">
+        @if (ventaAEditar == null)
+        {
+            <p>No existen ventas</p>
+        }
+        else
+        {
+            <VentasFormulario venta="ventaAEditar" />
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private Venta? ventaAEditar;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ventaAEditar = await dataAccess.ObtenerVenta(Id);
+    }
+}

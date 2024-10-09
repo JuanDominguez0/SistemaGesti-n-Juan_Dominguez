@@ -1,0 +1,11 @@
+.vs
+/SistemaGestionDatos/bin/
+/SistemaGestionDatos/obj/
+/SistemaGestionEntidades/bin/
+/SistemaGestionEntidades/obj/
+/SistemaGestionNegocio/bin/
+/SistemaGestionNegocio/obj/
+/SistemaGestionIU/bin/
+/SistemaGestionIU/obj/
+/WebApi/bin/
+/WebApi/obj/

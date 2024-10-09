@@ -1,0 +1,16 @@
+﻿@page "/productosVendidos/new"
+
+<div class="container">
+    <h1>Crear producto vendido</h1>
+    <div class="m-1 mb-3">
+        <NavLink class="btn btn-secondary" href="productosVendidos">Volver a productos</NavLink>
+    </div>
+    <div class="m-1">
+        <ProductosVendidosFormulario producto="productosVendidosNuevo" />
+    </div>
+</div>
+
+
+@code {
+    private ProductoVendido productosVendidosNuevo = new ProductoVendido();
+}

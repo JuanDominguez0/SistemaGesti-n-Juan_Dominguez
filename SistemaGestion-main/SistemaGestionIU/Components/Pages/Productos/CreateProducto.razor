@@ -1,0 +1,16 @@
+﻿@page "/productos/new"
+@inject ProductosService dataAccess
+
+<div class="container">
+    <h1>Agregar nuevo producto</h1> 
+    <div class="m-1 mb-3">
+        <NavLink class="btn btn-secondary" href="productos">Volver a productos</NavLink>
+    </div>
+    <div class="m-1">
+        <ProductosFormulario producto="productoNuevo" />
+    </div>
+</div>
+
+@code {
+    private Producto productoNuevo = new();
+}

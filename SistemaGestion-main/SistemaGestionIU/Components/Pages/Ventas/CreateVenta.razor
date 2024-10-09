@@ -1,0 +1,16 @@
+﻿@page "/ventas/new"
+
+<div class="container">
+    <h1>Agregar nueva venta</h1>
+    <div class="m-1 mb-3">
+        <NavLink class="btn btn-secondary" href="ventas">Volver a ventas</NavLink>
+    </div>
+    <div class="m-1">
+        <VentasFormulario venta="ventaNueva" />
+    </div>
+</div>
+
+
+@code {
+    private Venta ventaNueva = new Venta();
+}
